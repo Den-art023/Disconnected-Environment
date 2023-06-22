@@ -40,7 +40,8 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.txtNIM = new System.Windows.Forms.TextBox();
+            this.txtNim = new System.Windows.Forms.Label();
+            this.labelStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -160,19 +161,31 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // txtNIM
+            // txtNim
             // 
-            this.txtNIM.Location = new System.Drawing.Point(305, 292);
-            this.txtNIM.Name = "txtNIM";
-            this.txtNIM.Size = new System.Drawing.Size(204, 22);
-            this.txtNIM.TabIndex = 12;
+            this.txtNim.AutoSize = true;
+            this.txtNim.Location = new System.Drawing.Point(305, 294);
+            this.txtNim.Name = "txtNim";
+            this.txtNim.Size = new System.Drawing.Size(43, 16);
+            this.txtNim.TabIndex = 12;
+            this.txtNim.Text = "txtNIM";
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(695, 92);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(78, 16);
+            this.labelStatus.TabIndex = 13;
+            this.labelStatus.Text = "ID STATUS";
             // 
             // FormDataStatusMahasiswa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.txtNIM);
+            this.Controls.Add(this.labelStatus);
+            this.Controls.Add(this.txtNim);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.btnClear);
@@ -208,6 +221,7 @@
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.TextBox txtNIM;
+        private System.Windows.Forms.Label txtNim;
+        private System.Windows.Forms.Label labelStatus;
     }
 }

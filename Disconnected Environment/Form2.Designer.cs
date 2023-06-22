@@ -35,6 +35,8 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
             this.nmp = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,7 +71,7 @@
             // btnSave
             // 
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSave.Location = new System.Drawing.Point(314, 368);
+            this.btnSave.Location = new System.Drawing.Point(314, 397);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 0;
@@ -79,7 +81,7 @@
             // btnClear
             // 
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnClear.Location = new System.Drawing.Point(395, 368);
+            this.btnClear.Location = new System.Drawing.Point(395, 397);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 0;
@@ -106,11 +108,31 @@
             this.nmp.TabIndex = 1;
             this.nmp.Text = "Nama Prodi";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(229, 374);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 16);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "ID Prodi";
+            // 
+            // labelID
+            // 
+            this.labelID.AutoSize = true;
+            this.labelID.Location = new System.Drawing.Point(311, 374);
+            this.labelID.Name = "labelID";
+            this.labelID.Size = new System.Drawing.Size(50, 16);
+            this.labelID.TabIndex = 3;
+            this.labelID.Text = "Auto ID";
+            // 
             // FormDataProdi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelID);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.nmp);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.btnClear);
@@ -136,5 +158,7 @@
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Label nmp;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelID;
     }
 }

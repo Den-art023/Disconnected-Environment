@@ -13,9 +13,10 @@ namespace Disconnected_Environment
 {
     public partial class FormDataProdi : Form
     {
-        private string stringConnection = "data source = DEN\\DENMUHAMMAD" + 
+        private string stringConnection = "data source = DEN\\DENMUHAMMAD;" + 
         "database=activity6;User ID=sa;Password=12345678";
         private SqlConnection koneksi;
+        double val = 0;
 
         private void refreshform()
         {
@@ -43,6 +44,16 @@ namespace Disconnected_Environment
             koneksi.Close();
         }
 
+        private void autoIDProdi()
+        {
+            koneksi.Open();
+            SqlCommand cmd = new SqlCommand("Select count (id_prodi) from dbo.prodi", koneksi);
+            int i = Convert.ToInt32(cmd.ExecuteScalar());
+            koneksi.Close();
+            i++;
+            labelID.Text = "PRD" + val + i.ToString();
+        }
+
         private void btnOpen_Click(object sender, EventArgs e)
         {
             dataGridView();
@@ -64,6 +75,7 @@ namespace Disconnected_Environment
         private void btnSave_Click(object sender, EventArgs e)
         {
             string nmProdi = nmp.Text;
+            string idProdi = labelID.Text;
 
             if (nmProdi == "")
             {
@@ -72,10 +84,11 @@ namespace Disconnected_Environment
             else
             {
                 koneksi.Open();
-                string str = "Insert into dbo.Prodi (nama_prodi)" + "values(@id)";
+                string str = "Insert into dbo.Prodi (id_prodi, nama_prodi) values" + 
+                    "('" + idProdi + "','" + nmProdi + "')";
                 SqlCommand cmd = new SqlCommand(str, koneksi);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.Add(new SqlParameter("id", nmProdi));
+                cmd.Parameters.Add(new SqlParameter(idProdi, nmProdi));
                 cmd.ExecuteNonQuery();
 
                 koneksi.Close();
@@ -98,7 +111,7 @@ namespace Disconnected_Environment
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
+            autoIDProdi();
         }
     }
 }

@@ -79,41 +79,42 @@ namespace Disconnected_Environment
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            nim = txtNIM.Text;
-            nama = txtNama.Text;
-            jk = cbxJenisKelamin.Text;
-            alamat = txtAlamat.Text;
+            nim = txtNIM.Text.Trim();
+            nama = txtNama.Text.Trim();
+            jk = cbxJenisKelamin.Text.ToString();
+            alamat = txtAlamat.Text.Trim();
             tgl = dtTanggalLahir.Value;
-            prodi = cbxProdi.Text;
-            int hs = 0;
+            prodi = cbxProdi.Text.ToString();
+            /*int hs = 0;
             koneksi.Open();
             string strs = "select id_prodi from dbo.prodi where nama_prodi = @dd";
             SqlCommand cm = new SqlCommand(strs, koneksi);
             cm.CommandType = CommandType.Text;
             cm.Parameters.Add(new SqlParameter("@dd", prodi));
-            SqlDataReader dr = cm.ExecuteReader();
-            while (dr.Read())
+            SqlDataReader dr = cm.ExecuteReader();*/
+            if (string.IsNullOrEmpty(nim) || string.IsNullOrEmpty(nama) ||string.IsNullOrEmpty(alamat) ||
+                string.IsNullOrEmpty(jk) || string.IsNullOrEmpty(prodi))
             {
-                hs = int.Parse(dr["id_prodi"].ToString());
+                MessageBox.Show("Please fill in all identity fields!");
             }
-            dr.Close();
-            string str = "insert into dbo.mahasiswa (nim, nama_mahasiswa, jenis_kelamin, alamat, tgl_lahir, id_prodi" +
-            "values(@NIM, @Nm, @Jk, @Al, @Tgll, @Idp";
-            SqlCommand cmd = new SqlCommand(str, koneksi);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add(new SqlParameter("NIM", nim));
-            cmd.Parameters.Add(new SqlParameter("Nm", nama));
-            cmd.Parameters.Add(new SqlParameter("Jk", jk));
-            cmd.Parameters.Add(new SqlParameter("Al", alamat));
-            cmd.Parameters.Add(new SqlParameter("Tgll", tgl));
-            cmd.Parameters.Add(new SqlParameter("Idp", hs));
-            cmd.ExecuteNonQuery();
+            else
+            {
+                koneksi.Open();
+                string str = "insert into dbo.mahasiswa (nim, nama_mahasiswa, jenis_kelamin, alamat, tgl_lahir, id_prodi" +
+                    "values(@NIM, @Nm, @Jk, @Al, @Tgll, @id_prodi";
+                SqlCommand cmd = new SqlCommand(str, koneksi);
+                cmd.Parameters.Add(new SqlParameter("NIM", nim));
+                cmd.Parameters.Add(new SqlParameter("Nm", nama));
+                cmd.Parameters.Add(new SqlParameter("Jk", jk));
+                cmd.Parameters.Add(new SqlParameter("Al", alamat));
+                cmd.Parameters.Add(new SqlParameter("Tgll", tgl));
+                cmd.Parameters.Add(new SqlParameter("@id_prodi", prodi));
+                cmd.ExecuteNonQuery();
 
-            koneksi.Close();
+                koneksi.Close();
 
-            MessageBox.Show("Data Berhasil Disimpan", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            refreshform();
+                MessageBox.Show("Data Berhasil Disimpan");
+            }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -123,9 +124,6 @@ namespace Disconnected_Environment
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            txtNIM.Text = "";
-            txtNama.Text = "";
-            txtAlamat.Text = "";
             dtTanggalLahir.Value = DateTime.Today;
             txtNIM.Enabled = true;
             txtNama.Enabled = true;
@@ -136,7 +134,7 @@ namespace Disconnected_Environment
             Prodicbx();
             btnSave.Enabled = true;
             btnClear.Enabled = true;
-            btnAdd.Enabled = false;
+            btnAdd.Enabled = true;
         }
 
         private void Prodicbx()
@@ -144,14 +142,13 @@ namespace Disconnected_Environment
             koneksi.Open();
             string str = "Select nama_prodi from dbo.prodi";
             SqlCommand cmd = new SqlCommand(str, koneksi);
-            SqlDataAdapter da = new SqlDataAdapter(str, koneksi);
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            cmd.ExecuteReader();
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
             koneksi.Close();
             cbxProdi.DisplayMember = "nama_prodi";
             cbxProdi.ValueMember = "id_prodi";
-            cbxProdi.DataSource = ds.Tables[0];
+            cbxProdi.DataSource = dt;
         }
 
         private void FormDataMahasiswa_FormClosed(Object sender, FormClosedEventArgs e)
